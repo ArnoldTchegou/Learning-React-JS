@@ -1,0 +1,157 @@
+-------------Important Points--------------------
+
+1) Components : A piece of a UI
+2) A bunch of independent, isolated and reusable components are used to make a complexe UI
+3) The root component : represents the entire application and contains other child components
+4) Every react App contains atleast one component which is the root component. A react app is actually a tree of components
+5) Some components can include other components (N.B : some components are re-usable)
+6) Implementation of components:
+	- Javascript class
+	- state = {}; //data to be displayed when the component is renderred
+	- render () { }  //responsible for describing what the UI should look like
+	- The output of the renderMethod is a ReactElement which is a plainJS element which maps 		with a DOM element (virtual DOM in ReactElement maps with Real DOM in web browser)
+	- NB : React means react to state changes ie changing the state of a component causes react to automatically update the state of the component.
+7) React vs Angular : React is a Library while Angular is a Framework
+8) to install the create-react-app package : npm i -g create-react-app
+	- i for install
+	- g for global
+9) We use the create react app package to create a new react app: create-react-app app-name
+        - Installs react as well as all the third-party libaries needed
+          -lightweight Dev Server
+          -Wepack for bundling files
+          -Babel for compiling javascript code
+          NB : to customize the default config we can eject the defaut config by running npm run eject.
+10) to launch the developpement sever we run npm start
+11) the React-app-project-folder
+	- node_modules : contains all the third-party libaries as wella s react itself (we never have to touch it)
+	- public folder contains the public asserts of our application, index.html contains a div with id of the the application (id = root). this div is the container for our application
+	- src contains the basic component of react app
+	- JSX ==> JavaScript XML
+	- Babel converts JSX syntaxe into Plain JS that browsers understand
+	- The output of a JSX element is a reactelement.
+	- a Virtual DOM is a lightweight in memory representation of a UI and is not the same as the browser DOM.
+	- to render a virtual DOM inside of a real DOM (Browser DOM) we have to import ReactDOM from "react-dom" module.
+	- We can render an element or an app component in the real DOM
+	
+	
+	
+-------------------React Components--------------------------------------------
+1) Create our first component
+	- Import react component from react
+	- create class that extends component
+	- class contains render() method that returns a JSX object
+	- export component using class name
+2) Embedding expressions
+	- JSX expressions must have one parent element
+	- JSX expressions get compiled by Babel when createElement method is called, and the first argument to the method is the type of element to be created
+3) Displaying a value dynamically
+	- state a special object in react components that includes any data (property) that the object-component needs
+	NB : curly brases are used to include any valide JS expression
+	- JSX objects are just like normal plain JS objects (they can be returned from a function, passed to a function, or used as constants)
+4) Setting attributs of JSX objects
+	- setting object attribut is straight forward from state property
+	- to set the style and class attribut we use the the style and className keywords
+	- We can also use inline style attributs with double curly brases {{ }} to specify JSX element attribute
+3) Rendering classes dynamically
+	- We can use a function that modfies and returns class names
+4) Rendering Lists
+	- to render a list of items in react we use a array that contains the list of elements. Then we use the map function of aray:
+5) Conditional rendering
+	- We can use a helper function to render condition JSX expressions
+	- We can use a boolean && between the condition (boolean expressions) and the text or JSX expression to be rendered
+6) Handling Events
+	- to handle onClick events, we use a handle helper function and we pass the reference of this method to the button element
+7) Binding Event Handlers
+	- Events are handled by capturing the current object and changing it state. one method of doing this is by returning the current object in the cunstructor or using an arrow function that returns the current object state
+	- to modify a state property, we use the setState() method on the current object and set it arguments accordingly
+8) Passing event arguments
+	- Using a wrapper function to pass and argument to the event handler and call the wraper function in the JSX element
+	- Directly use an arrow function in the JSX element and pass an argument to the event handler
+
+
+https://admin.aws.padlove.io/
+
+
+----------------------------------Composing components--------------------------------------------------------------
+1) Tips : 
+	- imrc : import react component
+	- cc  : class extends component
+
+2) Event Loops and callback functions
+	- JavaScript is a single-threaded programming language with a synchronous execution model that processes one operation after another. This is known as blocking.
+	- To handle these operations in JavaScript, a developer must use asynchronous programming techniques.
+	- A callback is a function passed as an argument to another function.
+	- A callback function can run after another function has finished
+	- Functions running in parallel with other functions are called asynchronous
+
+3) Map an array to a list of components
+	- .map method is a non-mutating method which creates a new array as opposed to mutating methods which only modify the existing array
+	- Applications of map :
+		1) Calling a JS function for each item in an array (using a call back function)
+
+4) Passing data to components
+	- Every react component has a property called props which is a plain JS object that includes all the properties sent to the component from the parent
+
+5) passing children
+	- passing content between the openning and closing tag of a child component in a parent component
+	- use the children property// we can still use the props elemnts in th place
+6) debugging react apps
+
+7) Prop vs State
+	- props includes data that is given to a component while state includes data that is local or private to that component
+	- props is readonly, that is we cannot change the values of the props in the child components
+8) Handling and Raising events
+	- Important Rule: the component that owns the piece of a state should be the one modifying it
+	- if the piece of state is owned by the parent component and passed to the child component, it means the child component can't modify the state. Hence, the child component raises an event and the parent component handles the event
+	- we implement the handle event in the parent component and pass the reference of that the method as props to the child component
+9) Updating states
+	- We do not update staes directly, we use the seState method to update states
+10) Single Source of Truth
+	- when we try to update local (child) components from parent components, we face the issue of multiple source of truth
+	- to solve this problem we have to remove the local staes of the child components
+	- controlled components that have their own states, they receive data from the parent component
+		- in order to modify its own state, the controlled component raises and event and its parent component handles the event
+11) sync multiple components
+	- we have to lift states up to exchange props between two components that are not in parent-child relation
+12) Sstateless Functional components
+	- components with no states and no event handlers
+	- we use the contracted form sfc for creating stateless functional componets
+	- in sfc's we don't have the keyword this, so we have to include the props object as an argument of the function so that react passes it to the function at runtime
+13) Destructuring arguments
+	- the object destructuring {} property helps us pick a single property of an object without repeating the object's name in the dot notation
+14) Lifecycle Hooks : components go through a few phases during their lifecycle
+	1) Mounting phase : an instance of the component is created and inserted into the DOM
+	we have three lifecycle hooks in the componentphase: constructor, render, componentDidmount, react calls these methods in order
+	2) UPDATE phase: when a component or the props of a component gets changed
+	we have two lifecycle hooks: render and componentDidUpdate
+	3) UNMOUNT phase / this is when a component is removed from the DOM (delete)
+	one lifecycle hook: componentWillUnmount
+15) the constructor method is used to set the state of a component (we can't use seState method in the constructor)
+	- the constructor is always called once 
+	- likewise, to have access to the props in the constructor method, we have to pass it as a parameter
+
+16) componentDidMount
+	- this method is called after a component is rendered into the DOM
+	- its the perfect place to make API calls from the server
+16) render (rendering component in the virtual DOM)
+	- when a component is renderd, all its components are also rendered
+	- NB: we cannot use lifecycle hooks in stateless functional componets
+	- the reason why we don't update the states directly is have two object references in memory to help react compare the old VDOM and the new VDOM and hence update the Real DOM accordingly
+17) in the componentDidUpdate method we can compare preProps od prevState with actual props or state and make ajax calls to the server
+
+
+
+
+		
+			
+
+
+
+
+
+
+
+	
+	
+	
+	
