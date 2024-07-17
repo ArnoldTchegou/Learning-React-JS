@@ -1,23 +1,42 @@
-const Logger = require("./logger");
-const path = require("path");
+var express = require("express");
 
-const pathObj = path.parse(__filename);
-const os = require("os");
-var totalmem = os.totalmem();
+var app = express();
 
-logger = new Logger();
+var bodyParser = require("body-parser");
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-//Raise: Logging (data: message)
-logger.on("logging", (data) => {
-  console.log("logging", data);
+app.set("view engine", "ejs");
+
+//serving static files
+app.use("/assets", express.static("assets"));
+
+//reponding to a get request
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
-//Register a listner
-logger.on("message logged", (arg) => {
-  console.log("message logged", arg);
+app.get("/contact", (req, res) => {
+  res.render("contact", { qs: req.query });
 });
 
-logger.log("message");
-logger.connect(3000);
-//console.log(pathObj);
-//console.log("Total memory :" + totalmem);
+// POST /contact gets urlencoded bodies
+app.post("/contact", urlencodedParser, (req, res) => {
+  console.log(req.body);
+  res.render("contact-sucess", { data: req.body });
+});
+
+app.get("/profile/:id", (req, res) => {
+  //inserting more data into a view
+  var data = {
+    age: 29,
+    job: "developer",
+    hobbies: ["sports", "travelling", "eating"],
+  };
+  res.render("profile", {
+    person: req.params.id,
+    data: data,
+  });
+});
+
+app.listen(3000);
